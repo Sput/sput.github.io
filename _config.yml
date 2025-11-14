@@ -1,0 +1,17 @@
+title: "Sput Blog"
+description: "Software Engineering Notes"
+url: "https://sput.github.io"
+theme: jekyll-theme-cayman
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+collections:
+  posts:
+    output: true
+
+future: true
