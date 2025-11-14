@@ -47,7 +47,7 @@ The system uses a **hierarchical supervisor-worker agent model**, common in agen
 
 The execution chain is:
 
-**Date Guard → (if PASS) Control Assigner → (optional) Action Describer**
+**Date Guard → (if PASS) Action Describer → (if PASS) Control Assigner**
 
 This ensures inexpensive, deterministic checks run before expensive LLM steps.
 
