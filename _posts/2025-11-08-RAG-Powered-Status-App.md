@@ -17,6 +17,11 @@ The result: a **lightweight, explainable status hub** that transforms free-form 
 
 ---
 
+### **TL;DR**
+
+This app turns scattered weekly engineering updates into a searchable, AI-powered knowledge layer using retrieval-augmented generation (RAG). Each update is stored as a vector using embeddings so the system can answer questions like “What did the mobile team do last week?” with grounded, citation-rich responses. By pairing a clean UI with a FastAPI backend, pgvector search, and explainable LLM outputs, the app becomes a lightweight but powerful status hub that keeps teams aligned without meetings or manual digging.
+
+---
 ## **Under the Hood: RAG & Embeddings**
 
 ### What is RAG?
@@ -180,3 +185,7 @@ Secrets never touch the browser.
 FastAPI integrates cleanly with vector tools, analytics, and async orchestration.
 
 ### 4. **One clean API contract**
+- Single source of truth: The contract is defined once in FastAPI's Pydantic models, not duplicated across frontend/backend
+- Frontend isolation: The browser never knows FastAPI exists—no CORS, no cross-origin complexity, just standard same; origin fetch calls
+- Backend flexibility: Swap FastAPI for another service, add middleware (caching, rate limiting, auth), or change internal logic; the frontend contract stays the same
+- Type safety: Pydantic validates requests and responses at the FastAPI boundary, catching contract violations before they reach your code
