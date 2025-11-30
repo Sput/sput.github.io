@@ -10,22 +10,18 @@ https://github.com/Sput/interview_assistance
 The purpose of this app is to demonstrate the use of vectors and cosine similarity to compare pieces of text. When a new interview question is created, an edge function will create a model answer with the assistance of gpt-4o-mini. After that answer is created, a separate edge function will take that model answer, and turn it into a vector using the gpt-4-embedding model. When a user answers a question, their answer will be turned into a vector by a separate edge function. Another edge function will then perform cosine similarity on the model answer and the users answer to see how similar they are. This is presented as the user's score.
 
 # TL;DR
-This project is a voice-driven interview-practice app that mimics real conversations, letting users hear questions, speak answers, and get instant AI-based feedback. It combines Next.js, Supabase, and browser speech APIs to capture voice input, embed responses into vectors, and score them by cosine similarity against a model answer. The result is a realistic, feedback-rich system that helps users improve through immediate grading, retries, and conversational learning loops.
+This project is an interview-practice app that mimics real conversations, letting users read questions, type answers, and get instant AI-based feedback. It combines Next.js, Supabase, python, and embed responses into vectors, and score them by cosine similarity against a model answer. The result is a realistic, feedback-rich system that helps users improve through immediate grading, retries, and conversational learning loops.
 
 # **Practice Interviews, Powered by Voice**
 
-Most interview-prep tools either feel like digital flashcards or force you into typing.
+Most interview-prep tools either feel like digital flashcards.
 
-This app takes a different path — it aims to **simulate a real interview**. You hear a question, you speak your answer, you get instant feedback and a score — then you try again.
-
-It’s a **voice-first practice environment**, built with **Next.js**, **Supabase**, the **Web Speech API**, and a lightweight **feedback loop** that helps you iterate until you sound confident.
+This app takes a different path — it aims to **simulate a real interview**. You read a question, type your answer, get instant feedback and a score — then you try again.
 
 ---
 
 ## **What You Can Do**
 
-- **Voice answers:** Respond naturally using your microphone.
-- **Live transcript:** Watch your words appear and persist in real time as you speak.
 - **Smart question selection:** Get random interview questions without immediate repeats.
 - **Automatic scoring:** Receive a 0-100 score based on how semantically close your answer is to an ideal response.
 - **Feedback loop:** If your score falls below the bar, the system explains what’s missing — then re-asks the question.
@@ -45,18 +41,11 @@ Create questions you want to be prepared for during an interview
 2. After the model answer is created another edge function will create a vector representation of that answer  
    ![Vector Creation](/images/Screenshot%202025-11-13%20at%207.41.49%20AM.png)
 
-### **Voice Capture**
-
-The system uses the browser’s native speech recognition APIs (SpeechRecognition / webkitSpeechRecognition) that:
-
-- Requests microphone access upfront and handles “permission denied” gracefully.
-- Keeps listening during natural pauses — no cutoff mid-sentence.
-- Lets you tap **“End response”** when you’re done.
 
 ### **Conversation Loop**
 
 1. **Ask:** Click “Ask Interview Question” to fetch a category-specific question
-2. **Answer:** Speak your response (or type if you prefer)
+2. **Answer:** Type your response
 3. **Score & feedback:** Your answer is saved, and converted to a vector representation (same as the model answer above)  
    ![Answer Vectorization](/images/Screenshot%202025-11-13%20at%207.44.05%20AM.png)
 4. **Similarity score:** The user answer is then compared to the model answer using cosine similarity.  
@@ -77,37 +66,15 @@ To keep practice varied, the app filters out your most recent questions before s
 
 ---
 
-## **User Experience Details**
-
-- **Microphone access:**
-  - Always initiated by a button tap.
-  - If blocked, a clear message explains how to enable mic access or switch to text input.
-
-- **Persistent listening:**
-  - Interim speech appears instantly.
-  - The UI avoids flickering between “Listening” and “Processing” states.
-
-- **End response control:**
-  - You decide when recognition stops.
-  - The captured transcript becomes your final answer upon submission.
-
-- **Score card:**
-  - Always visible below the conversation area.
-  - Starts at 0 and updates after each graded attempt.
-  - Green for scores ≥ 60, red for < 60.
-
----
-
 ## **Architecture Overview**
 
 ### **Frontend**
 
-Built with **ShadCN, Next.js, and React**, the frontend orchestrates the entire voice and feedback flow:
+Built with **ShadCN, Next.js, and React**, the frontend orchestrates the entire answer and feedback flow:
 
 - Conversation view
-- Voice state management
-- Speech recognition hook
-- Microphone helper
+- Input state management
+- Grade renderer
 
 ### **Backend**
 
@@ -149,3 +116,9 @@ Embeddings are numerical vectors representing semantic meaning.
 ![Cosine Similarity](/images/Screenshot%202025-11-12%20at%2012.02.40%20PM.png)
 
 ### **Score Mapping**
+
+- Cosine Similarity returns a number between 0-1, which is multiplied by 100
+
+### Summary
+
+This app helps users practice interview questions by generating model answers, embedding them into vectors, and comparing user responses with cosine similarity for instant scoring. It uses a combination of Next.js, Supabase, Python edge functions, and OpenAI embeddings to automate question creation, vectorization, and grading. The result is a realistic, interactive interview simulator that provides immediate feedback, avoids repeat questions, and lays the groundwork for future features like progress tracking and adaptive hints.
