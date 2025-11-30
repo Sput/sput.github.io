@@ -13,7 +13,7 @@ This application streamlines that process from **artifact upload to human-approv
 
 ---
 
-## What the App Does
+## TL;DR
 
 At its core, the system is a **compliance evidence pipeline**:
 
