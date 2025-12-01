@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Human in the Loop Supervising Agents"
+date: 2025-12-01 07:07:07 +0100
+---
+
+
 # Summary of Human in the Loop (HITL) Agent Architecture Implementation
 
 I first built this application as a supervisor-worker agent , outlined in a blog post here: https://sput.github.io/2025/11/10/Agentic-Compliance-Evidence-Review.html, where a supervisor (python function) called workers (also python functions) to execute code to review evidence. I wanted to try a different solution and so re-built that functionality as a Human in the Loop (HITL) agent model. Essentially under this model a human plays the role of the supervisor, rather than a software agent. The worker agents still carry out reviews the same, but a human approves each step. In the real world this would not be considered "agentic", humans have supervised computer output for decades. The way you would most likely implement this solution is a hybrid along with a supervisor-worker model. The supervisor would control the workers most of the time, while a human would be needed for approval at critical stages. I made this one 100% purely human run for demostration purposes. 
