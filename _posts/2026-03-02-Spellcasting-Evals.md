@@ -1,4 +1,5 @@
-# Evals, Clearly: The Core Vocabulary and Logic That Actually Matter
+# D&D Spellcasting Evals
+![Spellcasting](/images/evals_spellcasting.png)
 
 If you are building with LLMs, evals are how you avoid guessing. A strong eval setup answers one practical question: is the new thing actually better than what we already have? The fastest way to get reliable signal is to pair clear vocabulary with clear decision logic.
 
