@@ -1,5 +1,7 @@
-# D&D Spellcasting Evals
+# [D&D Spellcasting Evals](https://tinyurl.com/spellcastingeval)
 ![Spellcasting](/images/evals_spellcasting.png)
+
+## [Click here to try if for yourself](https://tinyurl.com/spellcastingeval)
 
 If you are building with LLMs, evals are how you avoid guessing. A strong eval setup answers one practical question: is the new thing actually better than what we already have? The fastest way to get reliable signal is to pair clear vocabulary with clear decision logic.
 
@@ -53,6 +55,8 @@ That flow creates two big advantages: better regression detection and less ambig
 - Deterministic legality gate before preference scoring
 - Margin threshold to avoid overreacting to tiny score differences
 - Multiple judge passes with aggregation to reduce one-off noise
+
+## [Click here to try if for yourself](https://tinyurl.com/spellcastingeval)
 
 ## Quick Walkthrough
 
