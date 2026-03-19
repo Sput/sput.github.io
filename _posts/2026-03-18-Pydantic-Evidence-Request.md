@@ -12,6 +12,8 @@ Pain points:
 - DB writes fail late if required fields are missing/invalid.
 - Semantic matching can fail silently without clear error shape.
 
+![Evidence Request](/images/evidence_request.png)
+
 ## Implementation Notes
 - **What is Pydantic?**
   - Pydantic is a Python data-validation and settings library built around type hints.
@@ -25,6 +27,8 @@ Pain points:
   - Description truncation before insert.
   - System fallback to `"unknown"`.
   - Multi-stage control resolution to avoid hard failures.
+
+![Request Submitted](/images/request_submitted.png)
 
 ## Pydantic Use Cases
 **1. Validating LLM responses**
