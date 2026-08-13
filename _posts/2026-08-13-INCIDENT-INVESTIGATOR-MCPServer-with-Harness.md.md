@@ -39,7 +39,7 @@ The final output is a structured report with a title, summary, root cause, confi
 
 At a high level, the app is a single repository with a Next.js frontend, FastAPI backend, LangGraph workflow, local JSON-backed MCP tools, Postgres database, OpenAI report generation, and optional Langfuse tracing.
 
-![Simplified harness trace flow](./simple-trace-flow.svg)
+![Simplified harness trace flow](/images/simple-trace-flow.svg)
 
 ## The MCP Server
 
