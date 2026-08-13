@@ -35,11 +35,36 @@ For each incident, a backend harness coordinates specialized agents:
 
 The final output is a structured report with a title, summary, root cause, confidence score, evidence citations, reviewer challenges, and recommendations.
 
-## How It Works
+## The Harness
 
-At a high level, the app is a single repository with a Next.js frontend, FastAPI backend, LangGraph workflow, local JSON-backed MCP tools, Postgres database, OpenAI report generation, and optional Langfuse tracing.
+The harness is the core of the project.
+
+In this app, a harness means the code around the model that controls state, routing, tools, validation, review, observability, and fallback behavior. The LLM is only one part of the system.
+
+The investigation state includes fields:
+
+- `run_id`
+- `title`
+- `description`
+- `scenario`
+- `human_feedback`
+- `evidence`
+- `reviewer_challenges`
+- `needs_more_evidence`
+- `review_rounds`
+- `report`
+- `trace_events`
 
 ![Simplified harness trace flow](/images/simple-trace-flow.svg)
+
+The workflow is explicit:
+
+1. The **supervisor** creates an investigation plan.
+2. The **evidence investigator** gathers logs, metrics, deployments, and alerts through MCP tools.
+3. The **reviewer** checks whether required citations are present.
+4. The graph conditionally routes back for more evidence when needed.
+5. The **supervisor** generates a final report.
+
 
 ## The MCP Server
 
@@ -66,6 +91,8 @@ Each tool reads from local JSON fixtures under `mcp_server/fixtures`. The fixtur
   - Returns Python lists/dicts.
   - Can be called directly by backend code or tests.
 
+![MCP_fixture](/images/MCP_fixture.png)
+
   Example: `search_logs(...)` here actually loads `logs.json` and filters records.
 
   `mcp_server/server.py` contains the MCP server interface:
@@ -75,6 +102,7 @@ Each tool reads from local JSON fixtures under `mcp_server/fixtures`. The fixtur
   - Gives external MCP clients a standardized tool surface.
   - Delegates the real work to `fixture_store.py`.
 
+![MCP_tool](/images/MCP_tool.png)
 
 The model does not directly inspect arbitrary files or databases. It interacts with a constrained tool interface. That makes the system easier to reason about:
 
@@ -94,33 +122,7 @@ deployments.json#dep-001
 
 The reliability reviewer checks for required citations before accepting the evidence base. If a required citation is missing, the reviewer records a challenge instead of silently trusting the conclusion.
 
-## The Harness
 
-The harness is the core of the project.
-
-In this app, a harness means the code around the model that controls state, routing, tools, validation, review, observability, and fallback behavior. The LLM is only one part of the system.
-
-The investigation state includes fields:
-
-- `run_id`
-- `title`
-- `description`
-- `scenario`
-- `human_feedback`
-- `evidence`
-- `reviewer_challenges`
-- `needs_more_evidence`
-- `review_rounds`
-- `report`
-- `trace_events`
-
-The workflow is explicit:
-
-1. The **supervisor** creates an investigation plan.
-2. The **evidence investigator** gathers logs, metrics, deployments, and alerts through MCP tools.
-3. The **reviewer** checks whether required citations are present.
-4. The graph conditionally routes back for more evidence when needed.
-5. The **supervisor** generates a final report.
 
 When `langgraph` is installed, the harness uses a `StateGraph`. The project also has a fallback runner that executes the same staged workflow when LangGraph is unavailable in local development.
 
