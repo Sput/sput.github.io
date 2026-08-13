@@ -1,4 +1,4 @@
-# Building an AI Incident Investigator with MCP, LangGraph, and Observability
+# Building an AI Incident Investigator with an MCP Server and a Harness
 
 I built this application for two purposes:
 1. I wanted to understand how to build an MCP server
