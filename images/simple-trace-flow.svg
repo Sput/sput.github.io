@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="620" viewBox="0 0 1500 620" role="img" aria-labelledby="title desc">
+  <title id="title">Simple AI Incident Investigator Harness Flow</title>
+  <desc id="desc">Simplified flowchart: user input to FastAPI, individual harness calls, human review, and final report.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f8fa; }
+      .box { fill: #ffffff; stroke: #d8dee7; stroke-width: 2; rx: 10; }
+      .input { fill: #e3f5f1; stroke: #0f766e; }
+      .api { fill: #e7efff; stroke: #2563eb; }
+      .harness { fill: #ffffff; stroke: #6d5dfc; }
+      .human { fill: #fff2d8; stroke: #9a5b00; }
+      .final { fill: #e2f6ed; stroke: #237a57; }
+      .title { fill: #17202a; font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 800; }
+      .label { fill: #17202a; font-family: Inter, Arial, sans-serif; font-size: 17px; font-weight: 800; }
+      .small { fill: #5e6978; font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 500; }
+      .call { fill: #17202a; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; }
+      .arrow { stroke: #536170; stroke-width: 2.4; fill: none; marker-end: url(#arrowhead); }
+      .loop { stroke: #9a5b00; stroke-width: 2.4; fill: none; stroke-dasharray: 8 6; marker-end: url(#arrowheadWarn); }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#536170" />
+    </marker>
+    <marker id="arrowheadWarn" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#9a5b00" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1500" height="620" />
+  <text x="56" y="58" class="title">Simple Harness Flow</text>
+  <text x="56" y="84" class="small">User input enters FastAPI, the harness runs each explicit call, then a human reviews before the final report is accepted.</text>
+
+  <rect x="56" y="170" width="180" height="120" class="box input" />
+  <text x="82" y="214" class="label">User Input</text>
+  <text x="82" y="242" class="small">Incident scenario</text>
+  <text x="82" y="264" class="small">Title + description</text>
+
+  <rect x="428" y="110" width="430" height="360" class="box harness" />
+  <text x="460" y="150" class="label">Harness Calls</text>
+  <text x="460" y="182" class="call">1. Create investigation plan</text>
+  <text x="460" y="212" class="call">2. Gather MCP evidence</text>
+  <text x="488" y="238" class="small">2a. search_logs</text>
+  <text x="488" y="262" class="small">2b. get_service_metrics</text>
+  <text x="488" y="286" class="small">2c. get_database_metrics</text>
+  <text x="488" y="310" class="small">2d. get_deployment_history</text>
+  <text x="488" y="334" class="small">2e. get_recent_alerts</text>
+  <text x="460" y="366" class="call">3. Reliability review</text>
+  <text x="460" y="396" class="call">4. Generate final report draft</text>
+  <text x="460" y="426" class="call">5. Persist trace events + report</text>
+
+  <rect x="1026" y="170" width="190" height="120" class="box human" />
+  <text x="1054" y="214" class="label">Human Review</text>
+  <text x="1054" y="242" class="small">Accept report</text>
+  <text x="1054" y="264" class="small">or give feedback</text>
+
+  <rect x="1276" y="170" width="180" height="120" class="box final" />
+  <text x="1302" y="214" class="label">Final Report</text>
+  <text x="1302" y="242" class="small">Accepted output</text>
+  <text x="1302" y="264" class="small">Trace remains visible</text>
+
+  <path d="M236 230 H428" class="arrow" />
+  <path d="M858 230 H1026" class="arrow" />
+  <path d="M1216 230 H1276" class="arrow" />
+
+  <path d="M1121 290 C1121 540 642 540 642 470" class="loop" />
+  <text x="684" y="548" class="small" style="fill:#9a5b00;font-weight:800;">If not satisfied: feedback loops back to planning</text>
+</svg>
