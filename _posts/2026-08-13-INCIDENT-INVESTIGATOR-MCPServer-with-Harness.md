@@ -1,5 +1,3 @@
-# Building an AI Incident Investigator with an MCP Server and a Harness
-
 I built this application for two purposes:
 1. I wanted to understand how to build an MCP server
 2. I wanted to understand what harness engineering is and how it works 
