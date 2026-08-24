@@ -1,19 +1,17 @@
-# Building a Small Serverless Workout Tracker on AWS
-
-I wanted to build the smallest, cheapest, simpliest complete serverless application possible. My goal is to use this as a base for more applications like it. I built a static frontend, authenticated API, Lambda business logic, and DynamoDB storage. The app is dead simple: create a workout, see previous workouts, and update a selected workout with today's date. The object is simply to see what workouts I haven't done in a while, so I know what I should focus on.
+I wanted to build the smallest, cheapest, simplest complete serverless application possible. My goal is to use this as a base for more applications like it. I built a static front-end, authenticated API, Lambda business logic, and DynamoDB storage. The app is dead simple: create a workout, see previous workouts, and update a selected workout with today's date. The object is simply to see what workouts I haven't done in a while, so I know what I should focus on.
 
 ## The Problem
 
 Narrow scope and simple design:
 
-- Serve a frontend without running a web server.
+- Serve a front-end without running a web server.
 - Protect the app with sign-in.
 - Expose a few API routes.
-- Run backend code only when requests arrive.
+- Run back-end code only when requests arrive.
 - Store a small amount of structured data.
 - Keep operating cost low for a single-user (me).
 
-The result is a useful pattern: static frontend plus authenticated API plus event-driven backend.
+The result is a useful pattern: static front-end plus authenticated API plus event-driven back-end.
 
 ## The Solution
 
@@ -22,11 +20,11 @@ The application uses these AWS services:
 - **S3** stores the frontend files: `index.html`, `app.js`, `styles.css`, and `config.js`.
 - **CloudFront** serves those files over HTTPS.
 - **Cognito** provides the hosted sign-in page.
-- **API Gateway** exposes the backend routes and validates Cognito tokens.
+- **API Gateway** exposes the back-end routes and validates Cognito tokens.
 - **Lambda** handles list, create, and update operations.
 - **DynamoDB** stores workout records.
 
-The frontend is plain HTML, CSS, and JavaScript. There is no React, build step, package install, or app server. The backend is a single Python Lambda function using `boto3`, which is available in the AWS Lambda Python runtime.
+The front-end is plain HTML, CSS, and JavaScript. There is no React, build step, package install, or app server. The back-end is a single Python Lambda function using `boto3`, which is available in the AWS Lambda Python runtime.
 
 ## How It Works
 
