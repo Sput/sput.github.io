@@ -19,7 +19,7 @@ The application uses these AWS services:
 
 - **S3** stores the frontend files: `index.html`, `app.js`, `styles.css`, and `config.js`.
 - **CloudFront** serves those files over HTTPS.
-- **Cognito** provides the hosted sign-in page.
+- **Cognito** provides authentication, authorization and the hosted sign-in page.
 - **API Gateway** exposes the back-end routes and validates Cognito tokens.
 - **Lambda** handles list, create, and update operations.
 - **DynamoDB** stores workout records.
