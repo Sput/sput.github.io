@@ -10,7 +10,7 @@ Answering questions was solved by LLM Chatbots a few years ago, the goal here wa
 
 DungeonRouter runs as three local processes:
 
-![DungeonRouter architecture showing the browser, Rust API, local search, Switchyard, and OpenAI flow](assets/dungeonrouter-architecture.svg)
+![DungeonRouter architecture showing the browser, Rust API, local search, Switchyard, and OpenAI flow](images/dungeonrouter-architecture.svg)
 
 The browser sends a question and routing preference to the Rust service, then renders sources, answer fragments, model metadata, token usage, and validation results as Server-Sent Events.
 
@@ -33,7 +33,7 @@ For each question, the API:
 
 Routing starts by querying gpt-5-nano with the user's question and asking it to catgorize it using the following rules:
 
-![Table of model tiers and intended workload: GPT-5 Nano handles definitions, extraction, and direct one-passage lookups; GPT-5 Mini handles multi-rule explanations, routine adjudication, and tactical recommendations; GPT-5 handles ambiguous timing, competing interpretations, and long chains of interacting effects](assets/dungeonrouter-model-tiers.svg)
+![Table of model tiers and intended workload: GPT-5 Nano handles definitions, extraction, and direct one-passage lookups; GPT-5 Mini handles multi-rule explanations, routine adjudication, and tactical recommendations; GPT-5 handles ambiguous timing, competing interpretations, and long chains of interacting effects](images/dungeonrouter-model-tiers.svg)
 
 
 The classifier applies its rules in priority order. GPT-5 has hard escalation triggers such as reactions interrupting other actions, three or more interacting effects, conflicting rules, or an explicit request for every defensible ruling. Mini handles ordinary synthesis and recommendations. Nano is chosen only after the higher-complexity conditions have been ruled out.
@@ -46,15 +46,15 @@ Switchyard returns the selected model and rationale in response headers. Dungeon
 
 Two questions submitted to the same "Auto · cost-aware" endpoint land on different models, because the classifier reads how much reasoning each one actually needs.
 
-![Query box asking "how much damage does a shortsword do?" with Attunement set to Auto, cost-aware](assets/dungeonrouter-example-nano-query.png)
+![Query box asking "how much damage does a shortsword do?" with Attunement set to Auto, cost-aware](images/dungeonrouter-example-nano-query.png)
 
-![Result panel showing gpt-5-nano was selected via dungeon-router/auto with 100% confidence](assets/dungeonrouter-example-nano-result.png)
+![Result panel showing gpt-5-nano was selected via dungeon-router/auto with 100% confidence](images/dungeonrouter-example-nano-result.png)
 
 A direct SRD lookup like this falls through to `gpt-5-nano` with full confidence. There's no ambiguity to resolve and no synthesis across rules, so the cheapest capable model answers it.
 
-![Query box asking for good wizard spells against a red dragon in a confined space, with Attunement set to Auto, cost-aware](assets/dungeonrouter-example-mini-query.png)
+![Query box asking for good wizard spells against a red dragon in a confined space, with Attunement set to Auto, cost-aware](images/dungeonrouter-example-mini-query.png)
 
-![Result panel showing gpt-5-mini was selected via dungeon-router/auto, using 4580 tokens over 59.8 seconds](assets/dungeonrouter-example-mini-result.png)
+![Result panel showing gpt-5-mini was selected via dungeon-router/auto, using 4580 tokens over 59.8 seconds](images/dungeonrouter-example-mini-result.png)
 
 A tactical recommendation like this one has to weigh multiple interacting factors — area-of-effect damage, confined terrain, ally positioning — so it escalates to `gpt-5-mini`, which took 4,580 tokens and about a minute to produce a full answer. Same routing endpoint, same confidence in the decision, very different cost.
 
