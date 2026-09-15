@@ -68,6 +68,8 @@ Campaign notes introduce another trust boundary. They are treated as untrusted d
 
 Cost awareness is visible rather than implicit. Each completed run records the selected model, routing mode, rationale, confidence, token counts, latency, estimated cost, and a comparison against always using GPT-5.
 
+![Cost_estimator](/images/router_cost.png)
+
 ## What the experiment demonstrated
 
 This is a simple app that demonstrates how easy routing requests can be in order to save money on LLM queries. 
