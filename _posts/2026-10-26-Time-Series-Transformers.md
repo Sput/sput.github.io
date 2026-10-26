@@ -2,7 +2,8 @@
 
 *This blog post used AI to assist with writing. First three paragraphs are all me, last three is about 50% me, 50% AI written*
 
-We all know transformers can be used for language models, its pretty much all we ever hear about right now. This is the first in my series of tests to see "Is there anything a Transformer can't do". This dataset asks a model to predict how much of each product family a store will sell over the next 16 days. The challenge is that thousands daily series datasets must be forecast together: stores differ in size and location, product families behave differently, promotions and holidays shift demand, and sales repeat on weekly and yearly cycles. This project explores a central idea: Transformers, best known for analyzing language, can also analyze time series by learning which past moments and signals matter for a forecast.
+
+We all know transformers can be used for language models, its pretty much all we ever hear about right now. This is the first in my series of tests to see "Is there anything a Transformer can't do". My first attempt is to use a Transformer to predict time-series data. For this experiment I'm using this Kaggle competition: https://www.kaggle.com/competitions/store-sales-time-series-forecasting/overview. This dataset asks a model to predict how much of each product family a store will sell over the next 16 days. The challenge is that thousands daily series datasets must be forecast together: stores differ in size and location, product families behave differently, promotions and holidays shift demand, and sales repeat on weekly and yearly cycles. This project explores a central idea: Transformers, best known for analyzing language, can also analyze time series by learning which past moments and signals matter for a forecast.
 
 ![Store data](/images/store_data.png)
 
@@ -23,3 +24,7 @@ The name for a time series oriented transformer is: Temporal Fusion Transformer 
 For the purposes of evaluation I used three sequential, date-blocked validation folds (three sets of date ranges), each covering 16 days. Within each fold, an inner 16-day tail supports early stopping (when improvements stop), while the outer 16-day block is reserved for scoring. The full-run configuration uses an input window of 90 days, output horizon of 16 days, batch size 256, stride 14, a maximum of 64 samples per series, and up to five epochs with patience two. The transaction-feature model adds store-level transaction-count lags at the same 21-day-or-longer offsets, standardized using fold-local history; because every lag exceeds the horizon, it does not use unknown future transaction counts.
 
 The incumbent and TFT forecasts are blended in log space, with the blend weight selected or constrained using out-of-fold predictions rather than final submission labels. I started with 50% blend and just randomly tried different combinations until I found a 68%-TFT global blend using the transaction-feature was the best performer. 
+
+# Result:
+
+As of this blog post going up, I'm ranked #123 out of 589 entrants.
