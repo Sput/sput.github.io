@@ -17,39 +17,16 @@ Rather than building a separate model for every product at every store, the solu
 
 # Definitions
 
-
- ┌─────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- │ Term        │ Meaning here                                                                                                    │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Lag         │ A value from an earlier date in the same store–product series, used as a predictor for today’s sales. For       │
- │             │ example, a 21-day sales lag for August 16 uses that series’ sales from July 26. The model also uses seasonal    │
- │             │ lags such as 364, 365, and 730 days.                                                                            │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Input       │ The continuous span of recent history the model reads as context for a forecast. The full v3/v4 runs use a      │
- │ window      │ 90-day input window. Separate lag covariates can reach further back than those 90 days.                         │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Batch size  │ How many sampled training examples (forecast windows) are processed together for one training update. The full  │
- │             │ runs use 256. This does not mean 256 different stores or series.                                                │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Stride      │ The gap between sampled training-window positions along a time series. A stride of 14 samples windows 14 days   │
- │             │ apart; it reduces overlapping examples and training work. It does not change the 16-day forecast horizon.       │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Epoch       │ One pass through the sampled training examples. Five epochs means up to five passes; early stopping can end     │
- │             │ training sooner.                                                                                                │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Patience    │ How many validation epochs to wait without sufficient improvement before early stopping. Full runs use 2, with  │
- │             │ val_loss as the monitored quantity and a minimum improvement threshold. It only affects training when           │
- │             │ validation and early stopping are enabled.                                                                      │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Covariate   │ An input feature that may help predict sales, beyond the sales value being forecast. Examples include promotion │
- │             │ counts, calendar and holiday indicators, oil prices, store/product identity, and safely lagged sales or         │
- │             │ transaction data. Some are known in advance (calendar, planned promotions); others are historical-only and must │
- │             │ be lagged to avoid using unknown future values.                                                                 │
- ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ Log         │ The promotion-count feature transformed as log1p(onpromotion), meaning ln(1 + onpromotion). Zero remains zero,  │
- │ promotion   │ while large counts are compressed. It is a transformation of the promotion input—not the sales target.          │
- └─────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-
+| Term | Meaning |
+|---|---|
+| **Lag** | A value from an earlier date in the same store–product series, used as a predictor for today's sales. For example, a 21-day sales lag for August 16 uses that series' sales from July 26. The model also uses seasonal lags such as 364, 365, and 730 days. |
+| **Input window** | The continuous span of recent history the model reads as context for a forecast. The full v3/v4 runs use a 90-day input window. Separate lag covariates can reach further back than those 90 days. |
+| **Batch size** | How many sampled training examples (forecast windows) are processed together for one training update. The full runs use 256. This does not mean 256 different stores or series. |
+| **Stride** | The gap between sampled training-window positions along a time series. A stride of 14 samples windows 14 days apart; it reduces overlapping examples and training work. It does not change the 16-day forecast horizon. |
+| **Epoch** | One pass through the sampled training examples. Five epochs means up to five passes; early stopping can end training sooner. |
+| **Patience** | How many validation epochs to wait without sufficient improvement before early stopping. Full runs use 2, with `val_loss` as the monitored quantity and a minimum improvement threshold. It only affects training when validation and early stopping are enabled. |
+| **Covariate** | An input feature that may help predict sales, beyond the sales value being forecast. Examples include promotion counts, calendar and holiday indicators, oil prices, store/product identity, and safely lagged sales or transaction data. Some are known in advance (calendar, planned promotions); others are historical-only and must be lagged to avoid using unknown future values. |
+| **Log promotion** | The promotion-count feature transformed as `log1p(onpromotion)`, meaning `ln(1 + onpromotion)`. Zero remains zero, while large counts are compressed. It is a transformation of the promotion input—not the sales target. |
 
 # This part gets a little (but not a lot) more technical
 
